@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+cd $(dirname $0)
+PIDFILE=$(basename $0 .sh).pid
+if [ -f $PIDFILE ]; then
+  if [ -e /proc/$(cat $PIDFILE) ]; then
+    exit 0
+  fi
+fi
+echo $BASHPID > $PIDFILE
+
 while true
 do
     export DISPLAY=:0.0
