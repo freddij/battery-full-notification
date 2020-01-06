@@ -14,12 +14,12 @@ do
     battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
     if on_ac_power; then
         if [ "$battery_percent" -ge 88 ]; then
-            notify-send -i "$PWD/batteryfull.png" "Battery full." "Level: ${battery_percent}% "
+            notify-send -i "/usr/share/icons/gnome/scalable/status/battery-full-charging-symbolic.svg" "Battery Full." "Level: ${battery_percent}% "
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     else
         if [ "$battery_percent" -le 22 ]; then
-            notify-send -i "$PWD/batteryfull.png" "Battery empty." "Level: ${battery_percent}% "
+            notify-send -i "/usr/share/icons/gnome/scalable/status/battery-low-symbolic.svg" "Battery Low." "Level: ${battery_percent}% "
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     fi
