@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-CEIL=88
-FLOOR=22
+CEIL=82
+FLOOR=28
 cd $(dirname $0)
 PIDFILE=/tmp/$(basename $0 .sh).pid
 if [ -f $PIDFILE ]; then
@@ -16,14 +16,14 @@ do
     battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
     if on_ac_power; then
         if [ "$battery_percent" -ge $CEIL ]; then
-            notify-send -i "/usr/share/icons/hicolor/scalable/status/battery-full-charging-symbolic.svg" "Battery Full." "Level: ${battery_percent}% "
+            notify-send -i "/usr/share/icons/hicolor/scalable/status/battery-full-charging-symbolic.svg" "Battery Charged!" "Level: ${battery_percent}% "
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     else
         if [ "$battery_percent" -le $FLOOR ]; then
-            notify-send -i "/usr/share/icons/hicolor/scalable/status/battery-low-symbolic.svg" "Battery Low." "Level: ${battery_percent}% "
+            notify-send -i "/usr/share/icons/hicolor/scalable/status/battery-low-symbolic.svg" "Charge Battery!" "Level: ${battery_percent}% "
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     fi
-    sleep 30 # (5 minutes)
+    sleep 300 # (5 minutes)
 done
