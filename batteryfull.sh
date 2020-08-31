@@ -10,7 +10,7 @@ if [ -f $PIDFILE ]; then
 fi
 echo $BASHPID > $PIDFILE
 
-while true
+while sleep 120 # (2 minutes)
 do
     export DISPLAY=:0.0
     battery_percent=$(cat /sys/class/power_supply/BAT0/capacity)
@@ -25,5 +25,4 @@ do
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     fi
-    sleep 300 # (5 minutes)
 done

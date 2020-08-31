@@ -1,5 +1,5 @@
-set upper = 82
-set lower = 28
+upper = 82
+lower = 28
 set oLocator = CreateObject("WbemScripting.SWbemLocator")
 set oServices = oLocator.ConnectServer(".","root\wmi")
 set oResults = oServices.ExecQuery("select * from batteryfullchargedcapacity")
