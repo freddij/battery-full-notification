@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 CEIL=82
 FLOOR=28
-cd $(dirname $0)
 PIDFILE=/tmp/$(basename $0 .sh).pid
+
+cd $(dirname $0)
 if [ -f $PIDFILE ]; then
   if [ -e /proc/$(cat $PIDFILE) ]; then
     exit 0
@@ -17,11 +18,13 @@ do
     if on_ac_power; then
         if [ "$battery_percent" -ge $CEIL ]; then
             notify-send -i "/usr/share/icons/hicolor/scalable/status/battery-full-charging-symbolic.svg" "Battery Charged!" "Level: ${battery_percent}% "
+            zenity --warning --text="Battery Charged!" --icon-name=battery-full-charging-symbolic
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     else
         if [ "$battery_percent" -le $FLOOR ]; then
             notify-send -i "/usr/share/icons/hicolor/scalable/status/battery-low-symbolic.svg" "Charge Battery!" "Level: ${battery_percent}% "
+            zenity --warning --text="Charge Battery!" --icon-name=battery-low-symbolic
             paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
         fi
     fi
