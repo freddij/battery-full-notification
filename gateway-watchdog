@@ -1,0 +1,22 @@
+#!/bin/sh /etc/rc.common
+
+START=95
+STOP=10
+USE_PROCD=1
+
+start_service() {
+    procd_open_instance
+    
+    # Point procd directly to our standalone script execution path
+    procd_set_param command /root/bin/gateway-watchdog.sh
+    
+    # Ensures the process restarts automatically if it crashes
+    procd_set_param respawn
+    
+    # Completely silences stdout and stderr logs from hitting system.log
+    procd_set_param stdout 0
+    procd_set_param stderr 0
+    
+    procd_close_instance
+}
+
